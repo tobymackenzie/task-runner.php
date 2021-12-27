@@ -1,4 +1,4 @@
-SPDX2.2: 0BSD
+SPDX-License-Identifier: 0BSD
 
 Copyright (c) 2021 by Toby Mackenzie <public@tobymackenzie.com>
 
