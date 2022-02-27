@@ -34,4 +34,7 @@ class Task implements TaskInterface{
 		$this->dependencies[] = $dependency;
 		return $this;
 	}
+	public function getId(){
+		return get_class($this);
+	}
 }

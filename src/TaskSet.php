@@ -26,7 +26,7 @@ class TaskSet extends Task implements TaskSetInterface{
 	protected function hasDone($task){
 		if(is_string($task)){
 			foreach($this->done as $done){
-				if($done instanceof TaskInterface && get_class($done) === $task){
+				if($done instanceof TaskInterface && $done->getId() === $task){
 					return true;
 				}
 			}

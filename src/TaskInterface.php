@@ -10,4 +10,5 @@ interface TaskInterface{
 
 	//==dependencies
 	public function dependsOn();
+	public function getId();
 }
