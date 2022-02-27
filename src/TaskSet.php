@@ -11,6 +11,7 @@ class TaskSet extends Task implements TaskSetInterface{
 			$this->tasks = $tasks;
 		}
 	}
+	//==collection
 	protected function deferTask(TaskInterface $task){
 		$dependencies = $task->dependsOn();
 		if($dependencies){
@@ -22,6 +23,24 @@ class TaskSet extends Task implements TaskSetInterface{
 		}
 		return false;
 	}
+	protected function hasDone($task){
+		if(is_string($task)){
+			foreach($this->done as $done){
+				if($done instanceof TaskInterface && get_class($done) === $task){
+					return true;
+				}
+			}
+		}elseif($task instanceof TaskInterface){
+			foreach($this->done as $done){
+				if($done instanceof TaskInterface && $done === $task){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	//==operations
 	public function do(){
 		$remainingTasks = array_reverse($this->tasks);
 		if($remainingTasks){
@@ -47,22 +66,6 @@ class TaskSet extends Task implements TaskSetInterface{
 		}else{
 			$this->did[] = new DateTime();
 		}
-	}
-	protected function hasDone($task){
-		if(is_string($task)){
-			foreach($this->done as $done){
-				if($done instanceof TaskInterface && get_class($done) === $task){
-					return true;
-				}
-			}
-		}elseif($task instanceof TaskInterface){
-			foreach($this->done as $done){
-				if($done instanceof TaskInterface && $done === $task){
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 	public function undo(){
 		foreach($this->tasks as $task){
