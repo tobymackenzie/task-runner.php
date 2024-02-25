@@ -1,25 +1,19 @@
 <?php
 namespace TJM\TaskRunner;
-use DateTime;
+use Exception;
 
 class Task implements TaskInterface{
-	protected $did = [];
 	protected $dependencies = [];
 
 	//==operations
-	public function didDo(){
-		return count($this->did) > 0;
-	}
 	public function do(){
-		if($this->shouldDo()){
-			$this->did[] = new DateTime();
-		}
+		throw new Exception("Task " . get_class($this) . " has no `do()` method implemented.");
 	}
 	public function shouldDo(){
 		return true;
 	}
 	public function undo(){
-		$this->did = [];
+		throw new Exception("Task " . get_class($this) . " has no `undo()` method implemented.");
 	}
 
 	//==dependencies

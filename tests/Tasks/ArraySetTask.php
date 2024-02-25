@@ -14,18 +14,14 @@ class ArraySetTask extends Task{
 			$GLOBALS['a'] = [];
 		}
 		$GLOBALS['a'][] = $this->value;
-		parent::do();
 	}
 	public function undo(){
-		if($this->did){
-			if(!isset($GLOBALS['a'])){
-				$GLOBALS['a'] = [];
-			}
-			$index = array_search($this->value, $GLOBALS['a']);
-			if($index !== false){
-				unset($GLOBALS['a'][$index]);
-			}
-			parent::undo();
+		if(!isset($GLOBALS['a'])){
+			$GLOBALS['a'] = [];
+		}
+		$index = array_search($this->value, $GLOBALS['a']);
+		if($index !== false){
+			unset($GLOBALS['a'][$index]);
 		}
 	}
 }

@@ -11,17 +11,17 @@ use TJM\TaskRunner\Tests\Tasks\ShouldNotTask;
 class TaskSetTest extends TestCase{
 	public function testSimpleDoUndoDid(){
 		$tasks = new TaskSet();
-		$this->assertTrue(!$tasks->didDo());
+		$this->assertTrue($tasks->didDo(), 'Empty task set should be done always');
 		$tasks->do();
-		$this->assertTrue(!!$tasks->didDo());
+		$this->assertTrue($tasks->didDo(), 'Empty task set should be done after do');
 		$tasks->undo();
-		$this->assertTrue(!$tasks->didDo());
+		$this->assertTrue($tasks->didDo(), 'Empty task set should still be done after undo');
 	}
 	public function testShouldNotDid(){
 		$tasks = new TaskSet([new ShouldNotTask()]);
 		$this->assertTrue(!$tasks->didDo());
 		$tasks->do();
-		$this->assertTrue(!!$tasks->didDo());
+		$this->assertTrue($tasks->didDo());
 		$tasks->undo();
 		$this->assertTrue(!$tasks->didDo());
 	}
@@ -47,7 +47,7 @@ class TaskSetTest extends TestCase{
 		$this->assertTrue($GLOBALS['a'][0] === 'one');
 		$this->assertTrue($GLOBALS['a'][1] === 'two');
 		$this->assertTrue($GLOBALS['a'][2] === 'three');
-		$this->assertTrue(!!$tasks->didDo());
+		$this->assertTrue($tasks->didDo());
 		$tasks->undo();
 		$this->assertTrue(empty($GLOBALS['a']));
 		$this->assertTrue(!$tasks->didDo());
@@ -69,7 +69,7 @@ class TaskSetTest extends TestCase{
 		$this->assertTrue($GLOBALS['a'][1] === 'two');
 		$this->assertTrue($GLOBALS['a'][2] === 'three');
 		$this->assertTrue($GLOBALS['a'][3] === 'one');
-		$this->assertTrue(!!$tasks->didDo());
+		$this->assertTrue($tasks->didDo());
 		$tasks->undo();
 		$this->assertTrue(empty($GLOBALS['a']));
 		$this->assertTrue(!$tasks->didDo());

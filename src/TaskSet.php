@@ -23,19 +23,14 @@ class TaskSet extends Task implements TaskSetInterface{
 		}
 		return false;
 	}
+	public function didDo(){
+		return count($this->tasks) === count($this->done);
+	}
 	protected function hasDone($task){
 		if(is_string($task)){
-			foreach($this->done as $done){
-				if($done instanceof TaskInterface && $done->getId() === $task){
-					return true;
-				}
-			}
+			return isset($this->done[$task]);
 		}elseif($task instanceof TaskInterface){
-			foreach($this->done as $done){
-				if($done instanceof TaskInterface && $done === $task){
-					return true;
-				}
-			}
+			return isset($this->done[$task->getId()]);
 		}
 		return false;
 	}
@@ -56,23 +51,21 @@ class TaskSet extends Task implements TaskSetInterface{
 					if($task->shouldDo($this)){
 						$task->do();
 					}
-					$this->done[] = $task;
+					$this->done[$task->getId()] = $task;
 					$nonDeferredRemainingCount = 0;
 				}
 			}
 		}
 		if(count($this->done) !== count($this->tasks)){
 			throw new Exception(get_class($this) . ': ' . count($remainingTasks) . ' tasks were not complete');
-		}else{
-			$this->did[] = new DateTime();
 		}
 	}
 	public function undo(){
 		foreach($this->tasks as $task){
-			if($task->didDo()){
+			if($this->hasDone($task)){
 				$task->undo();
 			}
 		}
-		$this->did = [];
+		$this->done = [];
 	}
 }

@@ -1,8 +1,7 @@
 <?php
 namespace TJM\TaskRunner\Tests\Tasks;
-use TJM\TaskRunner\Task;
 
-class ShouldNotTask extends Task{
+class ShouldNotTask extends ShouldTask{
 	public function shouldDo(){
 		return false;
 	}

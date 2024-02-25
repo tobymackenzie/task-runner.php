@@ -3,7 +3,6 @@ namespace TJM\TaskRunner;
 
 interface TaskInterface{
 	//==operations
-	public function didDo();
 	public function do();
 	public function shouldDo();
 	public function undo();
