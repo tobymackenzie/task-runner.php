@@ -14,6 +14,14 @@ class TaskTest extends TestCase{
 		$task->undo();
 		$this->assertFalse($task->didDo());
 	}
+	public function testSimpleInvokeUndoDid(){
+		$task = new ShouldTask();
+		$this->assertFalse($task->didDo());
+		$task();
+		$this->assertTrue($task->didDo());
+		$task->undo();
+		$this->assertFalse($task->didDo());
+	}
 	public function testShouldNot(){
 		$task = new ShouldNotTask();
 		$task->do();

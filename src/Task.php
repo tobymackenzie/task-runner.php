@@ -6,6 +6,9 @@ class Task implements TaskInterface{
 	protected $dependencies = [];
 
 	//==operations
+	public function __invoke(){
+		return $this->do();
+	}
 	public function do(){
 		throw new Exception("Task " . get_class($this) . " has no `do()` method implemented.");
 	}
